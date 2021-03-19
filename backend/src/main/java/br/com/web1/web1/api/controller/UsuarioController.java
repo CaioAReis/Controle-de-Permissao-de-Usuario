@@ -20,7 +20,6 @@ import br.com.web1.web1.api.dto.UsuarioDTO;
 import br.com.web1.web1.api.model.Usuario;
 import br.com.web1.web1.api.repository.UsuarioRepository;
 
-
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -54,8 +53,7 @@ public class UsuarioController {
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable int idUsuario, @RequestBody UsuarioDTO usuario) {
         if (!usuarioRepository.existsById(idUsuario)) return ResponseEntity.notFound().build();
         usuario.setId(idUsuario);
-        Usuario usuario2 = usuario.toUsuario();
-        usuario2 = usuarioRepository.save(usuario2);
+        Usuario usuario2 = usuarioRepository.save(usuario.toUsuario());
         return ResponseEntity.ok(usuario2);
     }
 
@@ -74,5 +72,4 @@ public class UsuarioController {
         if (usuario2 == null) return ResponseEntity.noContent().build();
         else return ResponseEntity.accepted().build();
     }
-    
 }
