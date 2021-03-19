@@ -9,16 +9,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.web1.web1.api.dto.UsuarioDTO;
 import br.com.web1.web1.api.model.Usuario;
 import br.com.web1.web1.api.repository.UsuarioRepository;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/usuario")
@@ -44,17 +45,18 @@ public class UsuarioController {
     //  Salvar usuário
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario salvarUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public Usuario salvarUsuario(@RequestBody UsuarioDTO usuario) {
+        return usuarioRepository.save(usuario.toUsuario());
     }
 
     //  Atualizar usuário existente
-    @PutMapping("atualizar/{idUsuario}")
-    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
+    @PutMapping("/atualizar/{idUsuario}")
+    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable int idUsuario, @RequestBody UsuarioDTO usuario) {
         if (!usuarioRepository.existsById(idUsuario)) return ResponseEntity.notFound().build();
         usuario.setId(idUsuario);
-        usuario = usuarioRepository.save(usuario);
-        return ResponseEntity.ok(usuario);
+        Usuario usuario2 = usuario.toUsuario();
+        usuario2 = usuarioRepository.save(usuario2);
+        return ResponseEntity.ok(usuario2);
     }
 
     //  Remover usuário existente
@@ -64,4 +66,13 @@ public class UsuarioController {
         usuarioRepository.deleteById(idUsuario);
         return ResponseEntity.noContent().build();
     }
+
+    //  Autenticar Usuário
+    @GetMapping("/autenticar")
+    public ResponseEntity<Usuario> autenticar(@RequestBody UsuarioDTO usuario) {
+        Usuario usuario2 = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
+        if (usuario2 == null) return ResponseEntity.noContent().build();
+        else return ResponseEntity.accepted().build();
+    }
+    
 }

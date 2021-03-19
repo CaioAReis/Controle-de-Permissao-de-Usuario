@@ -7,5 +7,7 @@ import br.com.web1.web1.api.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
-    
+
+    Usuario findByLoginAndSenha(String login, String senha);
+
 }
