@@ -1,9 +1,11 @@
 package br.com.web1.web1.api.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.web1.web1.api.model.Recurso;
 import br.com.web1.web1.api.model.Usuario;
 
 public class UsuarioDTO {
@@ -16,6 +18,7 @@ public class UsuarioDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date data_nascimento;
     private char status;
+    private List<Recurso> recursos;
 
     public Usuario toUsuario() {
         Usuario usuario = new Usuario();
@@ -26,6 +29,7 @@ public class UsuarioDTO {
         usuario.setEmail(email);
         usuario.setData_nascimento(data_nascimento);
         usuario.setStatus(status);
+        usuario.setRecursos(recursos);
         return usuario;
     }
 
@@ -77,5 +81,12 @@ public class UsuarioDTO {
     }
     public void setStatus(char status) {
         this.status = status;
+    }
+    //  Recursos
+    public List<Recurso> getRecursos() {
+        return recursos;
+    }
+    public void setRecursos(List<Recurso> recursos) {
+        this.recursos = recursos;
     }
 }

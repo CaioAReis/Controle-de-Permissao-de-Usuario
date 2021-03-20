@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.web1.web1.api.dto.RecursoDTO;
 import br.com.web1.web1.api.dto.UsuarioDTO;
+import br.com.web1.web1.api.model.Recurso;
 import br.com.web1.web1.api.model.Usuario;
 import br.com.web1.web1.api.repository.UsuarioRepository;
 
@@ -71,5 +73,14 @@ public class UsuarioController {
         Usuario usuario2 = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
         if (usuario2 == null) return ResponseEntity.noContent().build();
         else return ResponseEntity.accepted().build();
+    }
+
+    //  Adicionar recurso
+    @PostMapping("/addRecurso/{idUsuario}")
+    public ResponseEntity<Recurso> addRecurso(@PathVariable UsuarioDTO usuario, @RequestBody RecursoDTO recurso) {
+        if (!usuarioRepository.existsById(usuario.getId())) return ResponseEntity.notFound().build();
+        Usuario usuario2 = usuarioRepository.getOne(usuario.getId());
+        usuario2.getRecursos().add(recurso.toRecurso());
+        return ResponseEntity.ok(recurso.toRecurso());
     }
 }
