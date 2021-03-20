@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.web1.web1.api.dto.RecursoDTO;
 import br.com.web1.web1.api.dto.UsuarioDTO;
-import br.com.web1.web1.api.model.Recurso;
 import br.com.web1.web1.api.model.Usuario;
+import br.com.web1.web1.api.repository.RecursoRepository;
 import br.com.web1.web1.api.repository.UsuarioRepository;
+
 
 @RestController
 @RequestMapping("/usuario")
@@ -28,6 +29,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private RecursoRepository recursoRepository;
 
     //  Listar todos os usuários
     @GetMapping
@@ -76,11 +80,11 @@ public class UsuarioController {
     }
 
     //  Adicionar recurso
-    @PostMapping("/addRecurso/{idUsuario}")
-    public ResponseEntity<Recurso> addRecurso(@PathVariable UsuarioDTO usuario, @RequestBody RecursoDTO recurso) {
-        if (!usuarioRepository.existsById(usuario.getId())) return ResponseEntity.notFound().build();
-        Usuario usuario2 = usuarioRepository.getOne(usuario.getId());
-        usuario2.getRecursos().add(recurso.toRecurso());
-        return ResponseEntity.ok(recurso.toRecurso());
+    @PostMapping("/permissao/{idUsuario}")
+    public ResponseEntity<Usuario> adicionarPermissao(@PathVariable int idUsuario, @RequestBody RecursoDTO recurso) {
+        if (!usuarioRepository.existsById(idUsuario)) return ResponseEntity.notFound().build();
+        if (!recursoRepository.existsById(recurso.getId())) return ResponseEntity.notFound().build();
+        usuarioRepository.addRecurso(idUsuario, recurso.getId());
+        return ResponseEntity.ok(usuarioRepository.findById(idUsuario).get());
     }
 }
