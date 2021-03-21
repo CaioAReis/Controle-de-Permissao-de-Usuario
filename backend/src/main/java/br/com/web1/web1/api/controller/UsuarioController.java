@@ -1,7 +1,6 @@
 package br.com.web1.web1.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,72 +18,55 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.web1.web1.api.dto.RecursoDTO;
 import br.com.web1.web1.api.dto.UsuarioDTO;
 import br.com.web1.web1.api.model.Usuario;
-import br.com.web1.web1.api.repository.RecursoRepository;
-import br.com.web1.web1.api.repository.UsuarioRepository;
-
+import br.com.web1.web1.api.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private RecursoRepository recursoRepository;
+    private UsuarioService usuarioService;
 
     //  Listar todos os usuários
     @GetMapping
     public List<Usuario> listar() {
-        return usuarioRepository.findAll();
+        return usuarioService.listar();
     }
     
     //  Buscar usuário
     @GetMapping("/{idUsuario}")
     public ResponseEntity<Usuario> buscarUsuario(@PathVariable int idUsuario) {
-        Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
-        if (usuario.isPresent()) return ResponseEntity.ok(usuario.get());
-        return ResponseEntity.notFound().build();
+        return usuarioService.buscarUsuario(idUsuario);
     }
 
     //  Salvar usuário
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario salvarUsuario(@RequestBody UsuarioDTO usuario) {
-        return usuarioRepository.save(usuario.toUsuario());
+        return usuarioService.salvarUsuario(usuario);
     }
 
     //  Atualizar usuário existente
     @PutMapping("/atualizar/{idUsuario}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable int idUsuario, @RequestBody UsuarioDTO usuario) {
-        if (!usuarioRepository.existsById(idUsuario)) return ResponseEntity.notFound().build();
-        usuario.setId(idUsuario);
-        Usuario usuario2 = usuarioRepository.save(usuario.toUsuario());
-        return ResponseEntity.ok(usuario2);
+        return usuarioService.atualizarUsuario(idUsuario, usuario);
     }
 
     //  Remover usuário existente
     @DeleteMapping("/{idUsuario}")
-    public ResponseEntity<Void> removerPokemon(@PathVariable int idUsuario) {
-        if (!usuarioRepository.existsById(idUsuario)) return ResponseEntity.notFound().build();
-        usuarioRepository.deleteById(idUsuario);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> removerUsuario(@PathVariable int idUsuario) {
+        return usuarioService.removerUsuario(idUsuario);
     }
 
     //  Autenticar Usuário
     @GetMapping("/autenticar")
     public ResponseEntity<Usuario> autenticar(@RequestBody UsuarioDTO usuario) {
-        Usuario usuario2 = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
-        if (usuario2 == null) return ResponseEntity.noContent().build();
-        else return ResponseEntity.accepted().build();
+        return usuarioService.autenticar(usuario);
     }
 
     //  Adicionar recurso
     @PostMapping("/permissao/{idUsuario}")
     public ResponseEntity<Usuario> adicionarPermissao(@PathVariable int idUsuario, @RequestBody RecursoDTO recurso) {
-        if (!usuarioRepository.existsById(idUsuario)) return ResponseEntity.notFound().build();
-        if (!recursoRepository.existsById(recurso.getId())) return ResponseEntity.notFound().build();
-        usuarioRepository.addRecurso(idUsuario, recurso.getId());
-        return ResponseEntity.ok(usuarioRepository.findById(idUsuario).get());
+        return usuarioService.adicionarPermissao(idUsuario, recurso);
     }
 }
