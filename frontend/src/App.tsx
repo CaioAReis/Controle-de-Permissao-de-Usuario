@@ -1,11 +1,11 @@
-import {Login} from './pages/Login/index';
+import {Routes} from './routes';
 
 import './global.css';
 
 function App() {
   return (
-    <div>
-      <Login />
+    <div className='container'>
+      <Routes />
     </div>
   );
 }

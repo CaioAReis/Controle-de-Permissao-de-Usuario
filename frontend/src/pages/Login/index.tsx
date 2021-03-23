@@ -1,24 +1,25 @@
+import { Link } from 'react-router-dom';
+
 import './style.css';
 
 export function Login() {
     return(
-        <section>
-           <div>
-                <form action="" method="post">
+        <section className='form-container'>
+            <form className='login' action="" method="post">
+                <h1>Login</h1>
 
-                    <h1>Login</h1>
+                <input name='Login' placeholder='Login'/>
+                <input type='password' name='senha' placeholder='Senha'/>
 
-                    <input name='Login' placeholder='Login'/>
-                    <input type='password' name='senha' placeholder='Senha'/>
-
+                <div>
+                    <strong>
+                        <Link to='/cadastrar'>Cadastre-se</Link>
+                    </strong>
                     <div>
-                        <strong>
-                            <a href='#'>Cadastre-se</a>
-                        </strong>
-                        <div><button className='button' type="submit">Entrar</button></div>
+                        <button className='button' type="submit">Entrar</button>
                     </div>
-                </form>
-           </div>
+                </div>
+            </form>
         </section>
     );
 }
