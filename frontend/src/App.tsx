@@ -1,8 +1,11 @@
-import './styles/global.css';
+import {Login} from './pages/Login/index';
+
+import './global.css';
 
 function App() {
   return (
     <div>
+      <Login />
     </div>
   );
 }

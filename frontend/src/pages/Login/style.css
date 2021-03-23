@@ -1,0 +1,32 @@
+
+section {
+    width: 100%;
+    max-width: 1120px;
+    height: 100vh;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* border: 1px solid red; */
+}
+
+h1 {
+    padding: 20px;
+    font-size: 2rem;
+}
+
+section > div {
+    width: 500px;
+}
+
+form > div {
+    margin-top: 10px;
+    border-top: 1px solid;
+}
+
+form > div div, a { 
+    display: inline-block;
+    width: 50%;
+}
