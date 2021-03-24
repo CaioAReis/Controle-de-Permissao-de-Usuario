@@ -1,10 +1,15 @@
 form.cadastro > div.last-input {
     display: flex;
+    font-size: 45px;
+}
+
+form.cadastro > div.last-input span {
+    margin: 0 30px;
 }
 
 form.cadastro > div.last-input input {
     width: 60%;
-    margin-right: 10%;
+    
 }
 
 form.cadastro div.link-login {
