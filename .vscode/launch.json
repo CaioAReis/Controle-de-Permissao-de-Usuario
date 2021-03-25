@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Web1Application<web1>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "br.com.web1.web1.Web1Application",
+            "projectName": "web1",
+            "args": ""
+        }
+    ]
+}
