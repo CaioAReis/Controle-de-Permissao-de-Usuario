@@ -20,7 +20,7 @@ export function Cadastrar() {
                     </div>
 
                     <div className='last-input'>
-                        <input name='status' size={1} placeholder='Status: A, B etc.'/> 
+                        <input name='status' maxLength={1} placeholder='Status: A, B etc.'/> 
                         <span>-</span>
                         <button className='button' type="submit">Cadastar</button>
                     </div>

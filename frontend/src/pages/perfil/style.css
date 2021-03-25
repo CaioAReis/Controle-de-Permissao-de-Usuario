@@ -1,11 +1,8 @@
 .perfil-container {
-
     width: 100%;
     max-width: 1180px;
     padding: 32px 30px 10px 30px;
     margin: 0 auto;
-
-    /* border: 1px solid red; */
 }
 
 .perfil-container header {
@@ -13,7 +10,6 @@
     align-items: center;
     padding-bottom: 20px;
     border-bottom: 2px solid #353535;
-
 }
 
 .perfil-container header span {

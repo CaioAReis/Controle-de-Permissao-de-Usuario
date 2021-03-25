@@ -1,0 +1,36 @@
+.alterar .last-input {
+    display: flex;
+    font-size: 45px;
+    border: 1px sold red;
+}
+
+.alterar .superior {
+    display: flex;
+    align-items: center;
+}
+
+.alterar .superior a {
+    width: 40px;
+    /* border: 1px solid red; */
+    transition: filter 0.1s;
+}
+
+.alterar .superior a:hover {
+    filter: contrast(300%);
+}
+
+.alterar .last-input span {
+    margin: 0 30px;
+}
+
+.alterar .last-input input {
+    width: 60%;
+    
+}
+
+.alterar .link-login {
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 30px;
+}
