@@ -62,7 +62,7 @@ form input {
 }
 
 .form-container {
-    width: 500px;
+    max-width: 500px;
 }
 
 .form-container h1 {

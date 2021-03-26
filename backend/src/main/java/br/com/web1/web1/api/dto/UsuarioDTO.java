@@ -1,6 +1,6 @@
 package br.com.web1.web1.api.dto;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
 
 import api from '../../services/api';
@@ -15,7 +15,7 @@ export function Cadastrar() {
 
     const history = useHistory();
 
-    function handleCadastro(e: any) {
+    async function handleCadastro(e) {
         e.preventDefault();
 
         const dados = {
@@ -28,10 +28,11 @@ export function Cadastrar() {
         };
 
         try {
-            const response = api.post('/usuario', dados);
-            alert(`Conta criada com sucesso.`);
+            await api.post('usuario', dados);
+            alert(`Conta criada com sucesso.  ${nome}`);
             history.push('/');
         } catch(err) {
+            console.log(dados);
             alert('Ocorreu um erro no cadastro.');
         }
     }
@@ -70,8 +71,7 @@ export function Cadastrar() {
                     <div>
                         <div style={{fontSize: '16px', marginBottom: '10px' }} >Data de nascimento:</div>
                         <input 
-                            type='date' 
-                            placeholder='Data nascimento'
+                            placeholder='dd/MM/aaaa'
                             value={data_nascimento}
                             onChange={ e => setData(e.target.value)}/>
                     </div>
@@ -80,6 +80,7 @@ export function Cadastrar() {
                         <input 
                             maxLength={1} 
                             placeholder='Status: A, B etc.'
+                            pattern="[A-Z]{1}"
                             value={status}
                             onChange={ e => setStatus(e.target.value)}/> 
                         <span>-</span>

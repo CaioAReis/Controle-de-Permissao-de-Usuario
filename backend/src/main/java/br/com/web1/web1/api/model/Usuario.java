@@ -1,6 +1,6 @@
 package br.com.web1.web1.api.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
