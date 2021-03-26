@@ -29,17 +29,15 @@ export function Cadastrar() {
 
         try {
             await api.post('usuario', dados);
-            alert(`Conta criada com sucesso.  ${nome}`);
+            alert(`Conta criada com sucesso.`);
             history.push('/');
         } catch(err) {
-            console.log(dados);
             alert('Ocorreu um erro no cadastro.');
         }
     }
 
     return(
         <div className="containerXY">
-
             <section className='form-container'>
                 <form className='cadastro' onSubmit={handleCadastro}>
                     <h1>Cadastro de usuário</h1>

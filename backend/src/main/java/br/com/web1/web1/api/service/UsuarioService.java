@@ -58,7 +58,7 @@ public class UsuarioService {
     public ResponseEntity<Usuario> autenticar(UsuarioDTO usuario) {
         Usuario usuario2 = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
         if (usuario2 == null) return ResponseEntity.noContent().build();
-        else return ResponseEntity.accepted().build();
+        else return ResponseEntity.ok(usuario2);
     }
 
     //  Adicionar recurso
