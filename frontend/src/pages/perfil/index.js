@@ -2,13 +2,17 @@ import React from 'react';
 import { FiXCircle, FiPlusCircle } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 
+// import api from '../../services/api';
 import './style.css'
 
 export function Perfil() {
+
+    const userName = localStorage.getItem('userName');
+
     return(
         <div className='perfil-container'>
             <header>
-                <span>Bem-vindo(a): Caio AReis</span>
+                <span><strong>Bem-vindo(a):</strong> {userName}</span>
                 <div style={{display: 'flex', width: '250px', marginLeft: 'auto'}}>
                     <Link to='/alterarDados' className='alterar'>
                         <button className='button'>Alterar Dados</button>

@@ -41,14 +41,14 @@ public class RecursoController {
     }
 
     //  Salvar um novo recurso
-    @PostMapping("/salvar")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Recurso salvarRecurso(@RequestBody RecursoDTO recurso) {
        return recursoService.salvarRecurso(recurso);
     }
 
     //  Atualizar recurso existente
-    @PutMapping("atualizar/{idRecurso}")
+    @PutMapping("/{idRecurso}")
     public ResponseEntity<Recurso> atualizarRecurso(@PathVariable int idRecurso, @RequestBody RecursoDTO recurso) {
         return recursoService.atualizarRecurso(idRecurso, recurso);
     }
