@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiXCircle, FiPlusCircle } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 
-// import api from '../../services/api';
+import api from '../../services/api';
 import './style.css'
 
 export function Perfil() {
 
     const userName = localStorage.getItem('userName');
+    const userId = localStorage.getItem('userId');
+
+    const [recursos, setRecursos] = useState([]);
+    const [recursosUser, setRecusosUser] = useState([]);
+
+    useEffect(() => {
+          api.get('recurso').then(response => setRecursos(response.data));
+          api.get(`usuario/recursos/${userId}`).then(response => setRecusosUser(response.data));
+    }, []);
+
+    async function handleDeleteRecurso(id) {
+        try {
+            await api.delete(`recurso/${id}`);
+            setRecursos(recursos.filter(recurso => recurso.id !== id));
+            setRecusosUser(recursosUser.filter(recurso => recurso.id !== id));
+        } catch (error) {
+            alert('Erro ao deletar recurso, tente novamente.');
+        }
+    }
 
     return(
         <div className='perfil-container'>
@@ -28,52 +47,26 @@ export function Perfil() {
                 <Link to='/novoRecurso' style={{width: '230px', marginLeft: 'auto'}}><button className='button'>Criar novo recurso</button></Link>
             </div>
 
-            <div className='recursos-container' >
+            <div className='recursos-container'>
                 <ul>
-                    <li>
+                    {recursos.map(recurso => (
+                    <li key={recurso.id}>
                         <div>
-                            <p><strong>Nome: </strong> Recurso 001</p>
+                            <p><strong>Nome: </strong> {recurso.nome} </p>
                         </div>
 
-                        <div style={{textAlign: 'center' }} >
-                            <p><strong>Status: </strong> A</p>
+                        <div className='div-status'>
+                            <p><strong>Status: </strong> {recurso.status} </p>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'flex-end'}} >
+                        <div className='div-buttons'>
                             <button className='list-button' style={{ marginRight:'20px' }} ><FiPlusCircle size={30} color='#a8a095' /> </button>
-                            <button className='list-button' ><FiXCircle size={30} color='#a8a095' /> </button>
+                            <button 
+                                className='list-button'
+                                onClick={() => handleDeleteRecurso(recurso.id)}><FiXCircle size={30} color='#a8a095' /> </button>
                         </div>
                     </li>
-
-                    <li>
-                        <div>
-                            <p><strong>Nome: </strong> Recurso 001</p>
-                        </div>
-
-                        <div style={{textAlign: 'center' }} >
-                            <p><strong>Status: </strong> A</p>
-                        </div>
-
-                        <div style={{ display: 'flex', justifyContent: 'flex-end'}} >
-                            <button className='list-button' style={{marginRight:'20px'}} ><FiPlusCircle size={30} color='#a8a095' /> </button>
-                            <button className='list-button' ><FiXCircle size={30} color='#a8a095' /> </button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div>
-                            <p><strong>Nome: </strong> Recurso 001</p>
-                        </div>
-
-                        <div style={{textAlign: 'center' }} >
-                            <p><strong>Status: </strong> A</p>
-                        </div>
-
-                        <div style={{ display: 'flex', justifyContent: 'flex-end'}} >
-                            <button className='list-button' style={{ marginRight:'20px' }} ><FiPlusCircle size={30} color='#a8a095' /> </button>
-                            <button className='list-button' ><FiXCircle size={30} color='#a8a095' /> </button>
-                        </div>
-                    </li>
+                    ))}
                 </ul>
             </div>
 
@@ -81,52 +74,23 @@ export function Perfil() {
 
             <div className='recursos-container' >
                 <ul>
-                    <li>
+                    {recursosUser.map(recursoU => (
+                    <li key={recursoU.id}>
                         <div>
-                            <p><strong>Nome: </strong> Recurso 001</p>
+                            <p><strong>Nome: </strong> {recursoU.nome} </p>
                         </div>
 
-                        <div style={{textAlign: 'center' }} >
-                            <p><strong>Status: </strong> A</p>
+                        <div className='div-status'>
+                            <p><strong>Status: </strong> {recursoU.status} </p>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'flex-end'}} >
-                            <button className='list-button' ><FiXCircle size={30} color='#a8a095' /> </button>
+                        <div className='div-buttons'>
+                            <button className='list-button'><FiXCircle size={30} color='#a8a095' /> </button>
                         </div>
                     </li>
-
-                    <li>
-                        <div>
-                            <p><strong>Nome: </strong> Recurso 001</p>
-                        </div>
-
-                        <div style={{textAlign: 'center' }} >
-                            <p><strong>Status: </strong> A</p>
-                        </div>
-
-                        <div style={{ display: 'flex', justifyContent: 'flex-end'}} >
-                            <button className='list-button' ><FiXCircle size={30} color='#a8a095' /> </button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div>
-                            <p><strong>Nome: </strong> Recurso 001</p>
-                        </div>
-
-                        <div style={{textAlign: 'center' }} >
-                            <p><strong>Status: </strong> A</p>
-                        </div>
-
-                        <div style={{ display: 'flex', justifyContent: 'flex-end'}} >
-                            <button className='list-button' ><FiXCircle size={30} color='#a8a095' /> </button>
-                        </div>
-                    </li>
+                    ))}
                 </ul>
             </div>
-
-            {/* <div className="novo-recurso-container"></div> */}
-
         </div>
     );
 }

@@ -86,6 +86,15 @@
     filter: brightness(50%);
 }
 
+.div-status {
+    text-align: center;
+}
+
+.div-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .novo-recurso-container {
     position: absolute;
     left: 0px;

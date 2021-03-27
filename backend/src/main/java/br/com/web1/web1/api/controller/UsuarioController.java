@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.web1.web1.api.dto.RecursoDTO;
 import br.com.web1.web1.api.dto.UsuarioDTO;
+import br.com.web1.web1.api.model.Recurso;
 import br.com.web1.web1.api.model.Usuario;
 import br.com.web1.web1.api.service.UsuarioService;
 
@@ -40,6 +41,12 @@ public class UsuarioController {
     @GetMapping("/{idUsuario}")
     public ResponseEntity<Usuario> buscarUsuario(@PathVariable int idUsuario) {
         return usuarioService.buscarUsuario(idUsuario);
+    }
+
+    //  Lista de Recuros do usuário
+    @GetMapping("/recursos/{idUsuario}")
+    public List<Recurso> buscarRecursisUsuario(@PathVariable int idUsuario) {
+        return usuarioService.buscarRecursisUsuario(idUsuario);
     }
 
     //  Salvar usuário

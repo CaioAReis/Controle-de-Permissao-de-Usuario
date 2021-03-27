@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.web1.web1.api.dto.RecursoDTO;
 import br.com.web1.web1.api.dto.UsuarioDTO;
+import br.com.web1.web1.api.model.Recurso;
 import br.com.web1.web1.api.model.Usuario;
 import br.com.web1.web1.api.repository.RecursoRepository;
 import br.com.web1.web1.api.repository.UsuarioRepository;
@@ -32,6 +33,11 @@ public class UsuarioService {
         Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
         if (usuario.isPresent()) return ResponseEntity.ok(usuario.get());
         return ResponseEntity.notFound().build();
+    }
+
+    //  Lista de recursos permitidos pelo usuário
+    public List<Recurso> buscarRecursisUsuario(int idUsuario) {
+        return usuarioRepository.findById(idUsuario).get().getRecursos();
     }
 
     //  Salvar usuário
