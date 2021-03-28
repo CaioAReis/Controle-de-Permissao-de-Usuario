@@ -16,7 +16,7 @@ export function Perfil() {
     useEffect(() => {
           api.get('recurso').then(response => setRecursos(response.data));
           api.get(`usuario/recursos/${userId}`).then(response => setRecusosUser(response.data));
-    }, []);
+    }, [userId]);
 
     async function handleDeleteRecurso(id) {
         try {
@@ -25,6 +25,15 @@ export function Perfil() {
             setRecusosUser(recursosUser.filter(recurso => recurso.id !== id));
         } catch (error) {
             alert('Erro ao deletar recurso, tente novamente.');
+        }
+    }
+
+    async function handlePermitirRecurso(userId, recursoO) {
+        try {
+            await api.post(`usuario/permissao/${userId}/${recursoO.id}`);
+            await api.get(`usuario/recursos/${userId}`).then(response => setRecusosUser(response.data));
+        } catch (error) {
+            alert('Erro tentar ao permitir acesso do recurso ao usuário, tente novamente.')
         }
     }
 
@@ -60,9 +69,14 @@ export function Perfil() {
                         </div>
 
                         <div className='div-buttons'>
-                            <button className='list-button' style={{ marginRight:'20px' }} ><FiPlusCircle size={30} color='#a8a095' /> </button>
+                            <button 
+                                className='list-button' 
+                                style={{ marginRight:'20px' }}
+                                title='Permitir recurso ao usuário'
+                                onClick={() => handlePermitirRecurso(userId, recurso)}><FiPlusCircle size={30} color='#a8a095' /> </button>
                             <button 
                                 className='list-button'
+                                title='Deletar recurso'
                                 onClick={() => handleDeleteRecurso(recurso.id)}><FiXCircle size={30} color='#a8a095' /> </button>
                         </div>
                     </li>
@@ -84,9 +98,7 @@ export function Perfil() {
                             <p><strong>Status: </strong> {recursoU.status} </p>
                         </div>
 
-                        <div className='div-buttons'>
-                            <button className='list-button'><FiXCircle size={30} color='#a8a095' /> </button>
-                        </div>
+                        <div className='div-buttons' />
                     </li>
                     ))}
                 </ul>

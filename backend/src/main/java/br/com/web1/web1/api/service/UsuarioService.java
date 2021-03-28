@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.web1.web1.api.dto.RecursoDTO;
 import br.com.web1.web1.api.dto.UsuarioDTO;
 import br.com.web1.web1.api.model.Recurso;
 import br.com.web1.web1.api.model.Usuario;
@@ -68,10 +67,10 @@ public class UsuarioService {
     }
 
     //  Adicionar recurso
-    public ResponseEntity<Usuario> adicionarPermissao(int idUsuario, RecursoDTO recurso) {
+    public ResponseEntity<Void> adicionarPermissao(int idUsuario, int idRecurso) {
         if (!usuarioRepository.existsById(idUsuario)) return ResponseEntity.notFound().build();
-        if (!recursoRepository.existsById(recurso.getId())) return ResponseEntity.notFound().build();
-        usuarioRepository.addRecurso(idUsuario, recurso.getId());
-        return ResponseEntity.ok(usuarioRepository.findById(idUsuario).get());
+        if (!recursoRepository.existsById(idRecurso)) return ResponseEntity.notFound().build();
+        usuarioRepository.addRecurso(idUsuario, idRecurso);
+        return ResponseEntity.ok().build();
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.web1.web1.api.dto.RecursoDTO;
 import br.com.web1.web1.api.dto.UsuarioDTO;
 import br.com.web1.web1.api.model.Recurso;
 import br.com.web1.web1.api.model.Usuario;
@@ -75,8 +74,8 @@ public class UsuarioController {
     }
 
     //  Adicionar recurso
-    @PostMapping("/permissao/{idUsuario}")
-    public ResponseEntity<Usuario> adicionarPermissao(@PathVariable int idUsuario, @RequestBody RecursoDTO recurso) {
-        return usuarioService.adicionarPermissao(idUsuario, recurso);
+    @PostMapping("/permissao/{idUsuario}/{idRecurso}")
+    public ResponseEntity<Void> adicionarPermissao(@PathVariable int idUsuario, @PathVariable int idRecurso) {
+        return usuarioService.adicionarPermissao(idUsuario, idRecurso);
     }
 }
