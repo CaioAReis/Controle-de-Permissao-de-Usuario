@@ -55,12 +55,12 @@ export function AlterarDados() {
 
                     <input 
                         placeholder='Nome' 
-                        defaultValue={nome}
+                        value={nome}
                         onChange={e => setNome(e.target.value)}/>
 
                     <input 
                         placeholder='Login' 
-                        defaultValue={login}
+                        value={login}
                         onChange={e => setLogin(e.target.value)} />
                         
                     <input 
@@ -72,14 +72,14 @@ export function AlterarDados() {
                     <input 
                         type='email' 
                         placeholder='Email' 
-                        defaultValue={email}
+                        value={email}
                         onChange={e => setEmail(e.target.value)}/>
                 
                     <div>
                         <div style={{fontSize: '16px', marginBottom: '10px' }} >Data de nascimento:</div>
                         <input 
                             placeholder='Data nascimento'
-                            defaultValue={data_nascimento}
+                            value={data_nascimento}
                             onChange={e => setData(e.target.value)}/>
                     </div>
 
@@ -87,7 +87,7 @@ export function AlterarDados() {
                         <input 
                             maxLength={1} 
                             placeholder='Status: A, B, ...' 
-                            defaultValue={status}
+                            value={status}
                             onChange={e => setStatus(e.target.value)}/> 
 
                         <span>-</span>

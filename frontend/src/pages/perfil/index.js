@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiXCircle, FiPlusCircle } from 'react-icons/fi'
+import { FiXCircle, FiPlusCircle, FiSearch } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -12,6 +12,8 @@ export function Perfil() {
 
     const [recursos, setRecursos] = useState([]);
     const [recursosUser, setRecusosUser] = useState([]);
+    const [pesquisa, setPesquisa] = useState(recursosUser);
+    const [status, setStatus] = useState('');
 
     useEffect(() => {
           api.get('recurso').then(response => setRecursos(response.data));
@@ -37,23 +39,32 @@ export function Perfil() {
         }
     }
 
+    async function handlePesquisa(e) {
+        e.preventDefault();
+        try {
+            setPesquisa(recursosUser.filter(rec => rec.status === status));
+        } catch (error) {
+            alert('Erro ao pesquisar, tente novamente.');
+        }
+    }
+
     return(
         <div className='perfil-container'>
             <header>
                 <span><strong>Bem-vindo(a):</strong> {userName}</span>
-                <div style={{display: 'flex', width: '250px', marginLeft: 'auto'}}>
+                <div className='div-buttons-top'>
                     <Link to='/alterarDados' className='alterar'>
                         <button className='button'>Alterar Dados</button>
                     </Link>
                     <Link to='/' >
-                        <button className='sair'>Sair</button>
+                        <button className='sair' onClick={() => localStorage.clear()}>Sair</button>
                     </Link>
                 </div>
             </header>
 
-            <div style={{ display: 'flex', alignItems: 'center' }} >
+            <div className='first-div'>
                 <h1>Recursos disponíveis:</h1>
-                <Link to='/novoRecurso' style={{width: '230px', marginLeft: 'auto'}}><button className='button'>Criar novo recurso</button></Link>
+                <Link to='/novoRecurso'><button className='button'>Criar novo recurso</button></Link>
             </div>
 
             <div className='recursos-container'>
@@ -79,29 +90,58 @@ export function Perfil() {
                                 title='Deletar recurso'
                                 onClick={() => handleDeleteRecurso(recurso.id)}><FiXCircle size={30} color='#a8a095' /> </button>
                         </div>
-                    </li>
-                    ))}
+                    </li> ))}
                 </ul>
             </div>
 
-            <h1>Recusos permitidos para o usuário:</h1>
+            <div className='title-div'>
+                <h1>Recusos permitidos para o usuário:</h1>
+                <div>
+                    <h1>Filtar por status:</h1>
+                    <form style={{display: 'flex'}} onSubmit={handlePesquisa} >
+                        <input
+                            pattern='[A-Z]{1}' 
+                            placeholder='A' 
+                            maxLength={1}
+                            onChange={e => setStatus(e.target.value)}/>
 
-            <div className='recursos-container' >
-                <ul>
-                    {recursosUser.map(recursoU => (
-                    <li key={recursoU.id}>
-                        <div>
-                            <p><strong>Nome: </strong> {recursoU.nome} </p>
-                        </div>
+                        <button type='submit' className='button-search' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} > <FiSearch size={30} color='#FFF' /></button>
+                    </form>
+                </div>
+            </div>
 
-                        <div className='div-status'>
-                            <p><strong>Status: </strong> {recursoU.status} </p>
-                        </div>
+            <div className='user-div'>
+                
+                <div className='recursos-container' style={{width: '49%'}}>
+                    <ul>
+                        {recursosUser.map(recursoU => (
+                        <li key={recursoU.id}>
+                            <div>
+                                <p><strong>Nome: </strong> {recursoU.nome} </p>
+                            </div>
 
-                        <div className='div-buttons' />
-                    </li>
-                    ))}
-                </ul>
+                            <div style={{textAlign: 'end'}}>
+                                <p><strong>Status: </strong> {recursoU.status} </p>
+                            </div>
+                        </li>))}
+                    </ul>
+                </div>
+
+                <div className='recursos-container' style={{width: '49%'}}>
+                    <ul>
+                        {pesquisa.map(recurso => (
+                        <li key={recurso.id}>
+                            <div>
+                                <p><strong>Nome: </strong> {recurso.nome} </p>
+                            </div>
+
+                            <div style={{textAlign: 'end'}}>
+                                <p><strong>Status: </strong> {recurso.status} </p>
+                            </div>
+                        </li>))}
+                    </ul>
+                </div>
+
             </div>
         </div>
     );

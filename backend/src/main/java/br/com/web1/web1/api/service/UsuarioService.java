@@ -35,7 +35,7 @@ public class UsuarioService {
     }
 
     //  Lista de recursos permitidos pelo usuário
-    public List<Recurso> buscarRecursisUsuario(int idUsuario) {
+    public List<Recurso> buscarRecursosUsuario(int idUsuario) {
         return usuarioRepository.findById(idUsuario).get().getRecursos();
     }
 

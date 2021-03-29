@@ -36,6 +36,40 @@
     color: #008EAD;
 }
 
+.div-buttons-top {
+    display: flex;
+    width: 250px;
+    margin-left: auto;
+}
+
+.first-div {
+    display: flex;
+    align-items: center;
+}
+
+.first-div a {
+    width: 230px;
+    margin-left: auto;
+}
+
+.title-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-div div {
+    width: 49%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-div {
+    display: flex;
+    justify-content: space-between;
+}
+
 .perfil-container h1 {
     margin-top: 60px;
     font-size: 1.5rem;
@@ -93,6 +127,38 @@
 .div-buttons {
     display: flex;
     justify-content: flex-end;
+}
+
+.title-div div form input {
+    width: 100px;
+    height: 60px;
+    background-color: #181A1B;
+    color: #A8A095;
+    border: 1px solid #A8A095;
+    border-radius: 8px;
+    padding: 0 24px;
+    margin-right: 20px;
+}
+
+.button-search {
+    width: 70px;
+    height: 60px;
+    background-color: #008EAD;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    /* margin-top: 16px; */
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 60px;
+    transition: filter 0.2s;
+}
+
+.button-search:hover {
+    filter: brightness(75%);
 }
 
 .novo-recurso-container {

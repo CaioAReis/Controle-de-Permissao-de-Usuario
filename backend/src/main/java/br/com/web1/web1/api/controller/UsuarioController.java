@@ -44,8 +44,8 @@ public class UsuarioController {
 
     //  Lista de Recuros do usuário
     @GetMapping("/recursos/{idUsuario}")
-    public List<Recurso> buscarRecursisUsuario(@PathVariable int idUsuario) {
-        return usuarioService.buscarRecursisUsuario(idUsuario);
+    public List<Recurso> buscarRecursosUsuario(@PathVariable int idUsuario) {
+        return usuarioService.buscarRecursosUsuario(idUsuario);
     }
 
     //  Salvar usuário
