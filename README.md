@@ -74,7 +74,7 @@ O projeto irá rodar em [http://localhost:8080](http://localhost:8080).
 
 + ### Front-end
 
-Para iniciar o front-end é necessário ter o [NodeJS](#) instalado em sua máquina.
+Para iniciar o front-end é necessário ter o [NodeJS](https://nodejs.org/en/download/) instalado em sua máquina.
 
 Em seguida é necessário instalar as dependências do projeto. Na pasta *📂 frontend*, execute o comando:
 
