@@ -4,12 +4,7 @@ Atividade de programação da disciplina Web I do curso de bacharelado em Sistem
 
 ## Diagrama:
 
-<div style="max-width: 500px"  >
-
-
-<img style="border-radius: 4px" src="./frontend/public/screenshots/diagrama.PNG"/>
-
-</div>
+![diagrama](./frontend/public/screenshots/diagrama.PNG)
 
 -----------------
 
@@ -101,27 +96,12 @@ A aplicação irá ser aberta em: [http://localhost:3000](http://localhost:3000)
 
 + ### Tela login
 
-<div style="max-width: 500px"  >
-
-
-<img style="border-radius: 4px" src="./frontend/public/screenshots/login.PNG"/>
-
-</div>
+![login](./frontend/public/screenshots/login.PNG)
 
 + ### Tela Cadastro
 
-<div style="max-width: 500px"  >
-
-
-<img style="border-radius: 4px" src="./frontend/public/screenshots/cadastro.PNG"/>
-
-</div>
+![cadastro](./frontend/public/screenshots/cadastro.PNG)
 
 + ### Tela Perfil
 
-<div>
-
-
-<img style="border-radius: 4px" src="./frontend/public/screenshots/perfil.PNG"/>
-
-</div>
+![perfil](./frontend/public/screenshots/perfil.PNG)
